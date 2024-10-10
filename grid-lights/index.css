@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(3, 1fr); /* Default: 3 columns */
+  border: 1px solid white;
+}
+.item {
+  border: 1px solid white;
+  height: 180px;
+}
+.item.on {
+  background-color: green;
+}

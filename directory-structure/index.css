@@ -1,0 +1,9 @@
+.fa-folder:before {
+  content: "\f006";
+  color: #d56e0c;
+}
+
+.fa-file:before {
+  content: "\f005";
+  color: #d56e0c;
+}

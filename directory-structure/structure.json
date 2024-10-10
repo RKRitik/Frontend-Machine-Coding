@@ -1,0 +1,21 @@
+{
+  "name": "root",
+  "files": [
+    {
+      "name": "index.html"
+    },
+    { "name": "index.css" },
+    {
+      "name": "src",
+      "files": [
+        { "name": "index.js" },
+        { "name": "app.module.ts" },
+        {
+          "name": "store",
+          "files": [{ "name": "store.ts" }, { "name": "redux.ts" }]
+        }
+      ]
+    },
+    { "name": "constants.ts" }
+  ]
+}
