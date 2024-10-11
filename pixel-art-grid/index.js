@@ -5,6 +5,8 @@ class PixelArt {
     this.fillColor = "green";
     this.rows = rows;
     this.cols = cols;
+    this.selectedColor = 0;
+    this.palleteColors = new Array(cols.length);
     this.canvasDim = { height: this.canvas.height, width: this.canvas.width };
     this.cellDim = {
       width: this.canvas.width / cols,
@@ -12,6 +14,7 @@ class PixelArt {
     };
     this.setupGrid();
     this.setupCells();
+    this.setupPallete();
     // Bind methods and store them to remove later
     this.boundPaintCell = this.paintCell.bind(this);
     this.boundDragStart = this.dragStart.bind(this);
@@ -76,11 +79,34 @@ class PixelArt {
     this.ctx.stroke();
   }
 
+  setupPallete() {
+    for (let i = 0; i < this.cols; i++) {
+      this.palleteColors[i] = {
+        r: Math.random() * 255,
+        g: Math.random() * 255,
+        b: Math.random() * 255,
+      };
+      this.ctx.fillStyle = `rgb(${this.palleteColors[i].r}, ${this.palleteColors[i].g}, ${this.palleteColors[i].b})`;
+      this.ctx.fillRect(
+        this.cellDim.width * i,
+        this.canvasDim.height - this.cellDim.height,
+        this.cellDim.width,
+        this.cellDim.height
+      );
+    }
+    this.fillColor = `rgb(${this.palleteColors[0].r}, ${this.palleteColors[0].g}, ${this.palleteColors[0].b})`;
+  }
+
   paintCell(event) {
     const [col, row] = [
       Math.floor(event.offsetX / this.cellDim.width),
       Math.floor(event.offsetY / this.cellDim.height),
     ];
+    if (row === this.rows - 1) {
+      this.fillColor = `rgb(${this.palleteColors[col].r}, ${this.palleteColors[col].g}, ${this.palleteColors[col].b})`;
+      this.selectedColor = col;
+      return;
+    }
     const startX = col * this.cellDim.width,
       startY = row * this.cellDim.height;
     this.ctx.fillStyle = this.fillColor;
