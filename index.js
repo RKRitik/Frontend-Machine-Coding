@@ -23,6 +23,12 @@ const result = calc.add(10).add(10).subtract(1).divide(2);
 //implement PUB SUB library
 //implement tic tac toe
 //HLD of jira software
+//box model ,flex, specificity
+//flipkart ->
+//FIND DEPTH OF A NODE IN HTML TREE
+//IMPLEMENT LRU CACHE
+//product list on left(from api), chat on right on click on product(options from api)
+//redux implementation
 
 /**
  *

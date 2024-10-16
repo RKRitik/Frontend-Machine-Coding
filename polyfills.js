@@ -85,6 +85,39 @@ const throttle = (fn, delay) => {
 //Promise.all polyfill
 //fail fast, if any fails return error
 //otherwise return all results
+Promise.customAll = function (promises) {
+  if (!promises) throw new TypeError("arg is not an iterable");
+  if (promises.constructor !== Array)
+    throw new TypeError("not an array of promises");
+
+  return new Promise((resolve, reject) => {
+    const results = new Array(promises.length);
+    let count = 0;
+
+    promises.forEach((promise, index) => {
+      // Check if the item is thenable
+      if (promise && typeof promise.then === "function") {
+        promise
+          .then((res) => {
+            results[index] = res;
+            count++;
+            if (count === results.length) resolve(results);
+          })
+          .catch((e) => reject(e));
+      } else {
+        // If it's not thenable, treat it as a resolved value
+        results[index] = promise;
+        count++;
+        if (count === results.length) resolve(results);
+      }
+    });
+
+    // If the array is empty, resolve immediately
+    if (promises.length === 0) {
+      resolve(results);
+    }
+  });
+};
 
 //Promise.any
 //returns first resolved promise, of if all fails returns all rejected promises
