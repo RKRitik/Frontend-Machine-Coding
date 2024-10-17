@@ -95,21 +95,13 @@ Promise.customAll = function (promises) {
     let count = 0;
 
     promises.forEach((promise, index) => {
-      // Check if the item is thenable
-      if (promise && typeof promise.then === "function") {
-        promise
-          .then((res) => {
-            results[index] = res;
-            count++;
-            if (count === results.length) resolve(results);
-          })
-          .catch((e) => reject(e));
-      } else {
-        // If it's not thenable, treat it as a resolved value
-        results[index] = promise;
-        count++;
-        if (count === results.length) resolve(results);
-      }
+      Promise.resolve(promise)
+        .then((res) => {
+          results[index] = res;
+          count++;
+          if (count === results.length) resolve(results);
+        })
+        .catch((e) => reject(e));
     });
 
     // If the array is empty, resolve immediately
@@ -121,9 +113,64 @@ Promise.customAll = function (promises) {
 
 //Promise.any
 //returns first resolved promise, of if all fails returns all rejected promises
+Promise.customAny = function (promises) {
+  if (!promises) throw new TypeError("not valid args");
+  if (promises.constructor !== Array) throw new TypeError("not valid array");
+  let settled = 0,
+    errorArray = new Array(promises.length);
+  return new Promise((outerResolve, outerReject) => {
+    promises.forEach((promise, index) => {
+      if (!promise.then) {
+        //not a promise, resolve immediately
+        outerResolve(promise);
+      }
+      Promise.resolve(promise)
+        .then((res) => outerResolve(res)) //resolve as soon any any promise is success
+        .catch((e) => {
+          settled++;
+          errorArray[index] = e;
+          if (settled === promises.length)
+            //all failed
+            outerReject(errorArray);
+        });
+    });
+  });
+};
 
 //Promise.allSettled polyfill
 //return response to all promises , where resolved or not
+Promise.myAllSettled = function (promises) {
+  if (!promises) throw new TypeError("not valid args");
+  if (promises.constructor !== Array) throw new TypeError("not valid array");
+  const responses = new Array(promises.length);
+  let settle = 0;
+  return new Promise((outerResolve, outerReject) => {
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then((res) => {
+          responses[index] = { status: "fulfilled", value: res };
+          settle++;
+          if (settle === promises.length) outerResolve(responses);
+        })
+        .catch((e) => {
+          responses[index] = { status: "rejected", reason: e };
+          settle++;
+          if (settle === promises.length) outerResolve(responses);
+        });
+    });
+  });
+};
 
 //Promise.race polyfill
 //return first fulfilled promise either rejected or resolved
+Promise.myRace = function (promises) {
+  if (!promises) throw new TypeError("not valid args");
+  if (promises.constructor !== Array) throw new TypeError("not valid array");
+  return new Promise((outerResolve, outerReject) => {
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then((res) => outerResolve(res)) //resolve as soon any any promise is success or failed
+        .catch((e) => outerReject(e));
+    });
+  });
+};
