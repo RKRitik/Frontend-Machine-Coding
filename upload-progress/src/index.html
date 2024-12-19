@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    html {
+      color: white;
+      background: black;
+    }
+  </style>
+  <script src="index.js"></script>
+</head>
+
+<body>
+
+
+  <h1>Simple Form</h1>
+  <form>
+    <label for="name">Name</label><input id="name"></input>
+    </br>
+    </br>
+    <label for="file-type">File type</label>
+    <select required id="file-type" default="">
+      <option selected value="">Select File type</option>
+      <option value="csv">Csv</option>
+      <option value="xlsx">xlsx</option>
+    </select>
+    </br>
+    </br>
+    <input id="fileInput" type="file" />
+    <input id="file-location" hidden />
+    </br>
+    </br>
+    <progress id="upload-progress" value="0"></progress>
+    <button type="submit">Submit</button>
+  </form>
+  <!-- <label for="file">Downloading progress:</label>
+  <progress id="file" value="32" max="100"> 32% </progress> -->
+
+</body>
+
+</html>
