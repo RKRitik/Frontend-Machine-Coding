@@ -174,3 +174,18 @@ Promise.myRace = function (promises) {
     });
   });
 };
+
+function flat(arr, depth = 1) {
+  const result = [];
+  //iterate over each element, if not array append
+  //else if this is array, check current depth. and then do it.
+  arr.forEach((value) => {
+    if (Array.isArray(value) && depth >= 1) {
+      const arrPart = flat(value, depth - 1);
+      result.push(...flat(value, depth - 1));
+    } else {
+      result.push(value);
+    }
+  });
+  return result;
+}

@@ -1,0 +1,40 @@
+html body {
+  background: black;
+  color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 400px); /* make 5 columns, each 400px */
+  grid-auto-rows: 100px; /* default 200px row if not */
+  /* grid-auto-rows: minmax(200px, auto) minimum height 200 px, max height : as much content requires */
+  grid-template-rows: repeat(4 50px); /* make 2 rows of height 100px */
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  grid-gap: 20px; /* both row and column gap */
+  justify-content: center; /* or start or end */
+  height: 100vh;
+  align-content: center;
+}
+
+.item {
+  background: blue;
+  border: 1spx soli white;
+}
+
+.item-2 {
+  grid-column-start: 2; /*start at column 2 */
+  grid-column-end: 4; /*end at column 4 */
+  /* grid-column-end: -1 end at last column */
+}
+
+.item-3 {
+  grid-column: 1 / 4; /*start at column 1, end at column 4 */
+  grid-row-start: 2; /*start at row 2 */
+  grid-row-end: 4; /*end at row 4 */
+}
+
+.item-6 {
+  grid-row: span 2; /* span tw rows */
+  grid-column: span 3; /* span three columns */
+}

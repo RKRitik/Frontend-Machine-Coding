@@ -1,3 +1,5 @@
+// differrence between use context and redux
+
 const obj = {
   name: "ritik",
   greet: function () {
@@ -56,3 +58,22 @@ var output = (function (a) {
 console.log(output); //ouputs 0, delete only works on object and not on primitives
 
 ////////////////////////////////////////////////
+function add(a, b) {
+  this.a = a;
+  this.b = b;
+  console.log(this.a + this.b);
+}
+
+add.prototype.assignA = function (a) {
+  this.a = a;
+  console.log(this.a + this.b);
+};
+
+add.prototype.assignB = (b) => {
+  this.b = b;
+  console.log(this.a + this.b);
+};
+
+const a = new add(10, 10); // 20
+a.assignA(20); // 30
+a.assignB(30); //NaN

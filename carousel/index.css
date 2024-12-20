@@ -1,0 +1,28 @@
+html,
+body {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  gap: 20px;
+  width: 900px;
+  height: 500px;
+  background: grey;
+  border-radius: 2%;
+  position: relative;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  padding: 20px;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.6);
+  width: 200px;
+}
