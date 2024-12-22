@@ -1,0 +1,33 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-bar-container {
+  background-color: blue;
+  width: 160px;
+  height: 11px;
+  border: 1px solid grey;
+}
+
+.progress-bar-inner {
+  background-color: red;
+  height: 100%;
+  animation: progress-bar 5s linear;
+}
+@keyframes progress-bar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
