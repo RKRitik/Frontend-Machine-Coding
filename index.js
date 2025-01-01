@@ -29,6 +29,50 @@ const result = calc.add(10).add(10).subtract(1).divide(2);
 //IMPLEMENT LRU CACHE
 //product list on left(from api), chat on right on click on product(options from api)
 //redux implementation
+//amazon
+// Given a series of child-parent relations like
+// capture the relationship of these entities so you can print the
+// relationships in a nested format at any point.
+//understand this!!!
+function findAndAddChild(obj, child, parent) {
+  // If we found the parent, add the child to it
+  if (parent in obj) {
+    obj[parent][child] = {};
+    return true;
+  }
+
+  // Recursively search through all nested objects
+  for (let key in obj) {
+    if (
+      typeof obj[key] === "object" &&
+      findAndAddChild(obj[key], child, parent)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function addRelation(map, [child, parent]) {
+  // If parent doesn't exist anywhere in the structure, add it at top level
+  if (!findAndAddChild(map, child, parent)) {
+    if (!map[parent]) map[parent] = {};
+    map[parent][child] = {};
+  }
+  return map;
+}
+
+let map = {};
+map = addRelation(map, ["dog", "mammal"]);
+map = addRelation(map, ["shark", "fish"]);
+map = addRelation(map, ["cat", "mammal"]);
+map = addRelation(map, ["mammal", "animal"]);
+map = addRelation(map, ["fish", "animal"]);
+map = addRelation(map, ["nemo", "fish"]);
+map = addRelation(map, ["puppy", "dog"]);
+map = addRelation(map, ["small-fish", "nemo"]);
+console.log(JSON.stringify(map, null, 2));
+return;
 
 /**
  *
