@@ -1,0 +1,63 @@
+.html,
+body {
+  padding: 24px;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-container {
+  display: flex;
+  flex-direction: column;
+}
+.search-box {
+  background: #e63552;
+  padding: 12px;
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+}
+
+.search-box-open {
+  border-radius: 6px 6px 0 0;
+}
+
+.search-box::placeholder {
+  color: #801d2e;
+}
+.search-box:hover {
+  background: #ff3b5b;
+}
+
+.search-box:focus,
+.search-box:active {
+  outline: none;
+}
+.inner-container {
+  width: 50%; /* Ensures inner-container takes the full width */
+}
+
+.search-results {
+  display: none;
+  background: #ff8a8a;
+  position: relative;
+  width: 100%;
+  max-height: 400px;
+  overflow: scroll;
+  scrollbar-width: none;
+  padding: 12px;
+  border-radius: 0 0 10px 10px;
+}
+
+.search-results > div {
+  padding: 10px 0;
+  cursor: pointer;
+}
+.search-results > div:hover {
+  background: grey;
+}
+
+.search-results::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome/Edge/Safari */
+}
